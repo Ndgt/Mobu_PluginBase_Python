@@ -3,7 +3,7 @@ Set the standard of arranging original Python Sripts/Tools
 <br>
 
 ## Concepts
-**Show up plugins in the tab menu from original distribution firectory**
+Show up plugins in the tab menu from original distribution firectory
 
 
 ## Rules
@@ -12,7 +12,7 @@ Set the standard of arranging original Python Sripts/Tools
 
 
 ### Tools
-- define `ActivateTool()` function in the main file
+- define `ActivateTool()` function in the main file<br>
     ```
     def ActivateTool():
         # define the Tool name 
