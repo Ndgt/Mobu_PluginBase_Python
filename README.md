@@ -12,19 +12,18 @@ Set the standard of arranging original Python Sripts/Tools
 
 
 ### Tools
-- define
+- define `ActivateTool()` function in the main file
+    ```
+    def ActivateTool():
+        # define the Tool name 
+        toolName = "<tool name>"
 
-```
-def ActivateTool():
-    # define the Tool name 
-    toolName = "<tool name>"
-
-    # check the Tool already created
-    if toolName in FBToolList:
-        ShowToolByName(toolName)
+        # check the Tool already created
+        if toolName in FBToolList:
+            ShowToolByName(toolName)
     
-    else:
-        tool = WigTool(toolName)
-        FBAddTool(tool)
-        ShowToolByName(toolName)
-```
+        else:
+            tool = WigTool(toolName)
+            FBAddTool(tool)
+            ShowToolByName(toolName)
+    ```

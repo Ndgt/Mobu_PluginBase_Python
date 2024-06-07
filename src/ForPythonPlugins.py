@@ -1,8 +1,7 @@
 # -*- coding: utf-8
 
 import sys,os,inspect,importlib
-from pyfbsdk import FBGetMainWindow, ShowToolByName
-from pyfbsdk_additions import FBToolList
+from pyfbsdk import FBGetMainWindow
 
 # for MotionBuilder 2025
 try:
@@ -14,15 +13,6 @@ except:
     from PySide2 import QtWidgets
     from shiboken2 import wrapInstance
 
-
-# メニュー押下時にツールを表示
-def FromMenuActivate(Name:str):
-    if Name in FBToolList:
-        ShowToolByName(Name)
-
-    else:
-        script = importlib.import_module(Name)
-        script.main()
 
 # get the widget of Motionbuilder main window 
 # MotionBuilderのUI全体の親にあたるwidgetを取得
@@ -43,7 +33,7 @@ def getTabMenu(win : QtWidgets.QWidget) -> QtWidgets.QMenu:
                         return childwidget
 
 
-def ReturnList() -> tuple[list,list]:
+def AddMenu(tabmenu:QtWidgets.QMenu) -> tuple[list,list]:
     toolList = []
     scriptList = []
 
@@ -54,30 +44,25 @@ def ReturnList() -> tuple[list,list]:
     sys.path.append(toolpath)
     sys.path.append(scriptpath)
 
+    tmenu = tabmenu.addMenu("Tools")
+    smenu = tabmenu.addMenu("Scripts")
+
     for file in os.listdir(toolpath):
         if file.endswith(".py"):
-            module_name = file - ".py"
-            importlib.import_module(module_name)
-            toolList.append(module_name)
+            module_name = file[:-3]
+            module = importlib.import_module(module_name)
+            t = tmenu.addAction(module_name)
+            t.triggered.connect(module.ActivateTool)
     
     for file in os.listdir(scriptpath):
         if file.endswith(".py"):
-            module_name = file - ".py"
-            importlib.import_module(module_name)
-            scriptList.append(module_name)
+            module_name = file[:-3]
+            module = importlib.import_module(module_name)
+            s = smenu.addAction(module_name)
+            s.triggered.connect(module.main)
 
-    return toolList,scriptList
 
-
-if __name__ in ("__main__", "__builtins__"):
+if __name__ in ("__main__", "builtins"):
     mainwindow = getMainWindow()
-    tabwidget = getTabMenu(mainwindow)
-    
-    tmenu = tabwidget.addMenu("Tools")
-    smenu = tabwidget.addMenu("Scripts")
-
-    for toolName, scriptName in ReturnList():
-        t = tmenu.addAction(toolName)
-        t.triggered.connect(FromMenuActivate, toolName)
-        s = smenu.addAction(scriptName)
-        s.triggered.connect(FromMenuActivate, scriptName)
+    tabmenu = getTabMenu(mainwindow)
+    AddMenu(tabmenu)
