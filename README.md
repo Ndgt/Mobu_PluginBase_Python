@@ -24,7 +24,8 @@ Show up plugins in the tab menu from original distribution directory
             ShowToolByName(toolName)
     
         else:
-            tool = WigTool(toolName)
+            # declare tool
+            tool = <Original Tool>
             FBAddTool(tool)
             ShowToolByName(toolName)
     ```

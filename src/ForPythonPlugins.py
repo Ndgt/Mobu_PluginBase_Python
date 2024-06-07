@@ -15,7 +15,6 @@ except:
 
 
 # get the widget of Motionbuilder main window 
-# MotionBuilderのUI全体の親にあたるwidgetを取得
 def getMainWindow() -> QtWidgets.QWidget:
     ptr = FBGetMainWindow()
     if ptr is not None:
@@ -24,19 +23,18 @@ def getMainWindow() -> QtWidgets.QWidget:
 
 def getTabMenu(win : QtWidgets.QWidget) -> QtWidgets.QMenu:
     if win is not None:
-        # 画面上部のメニュータブのwidgetが見つかるまで子を探索
-        # どちらのPySideのバージョンにも対応すべく、型そのものではなく型の文字列で条件分岐
+        # Search TabMenu Widget
         for child in win.children():
             if not str(type(child)).find("QtWidgets.QWidget") == -1:
                 for childwidget in child.children():
                     if not str(type(childwidget)).find("QtWidgets.QMenuBar") == -1:
                         return childwidget
 
-
-def AddMenu(tabmenu:QtWidgets.QMenu) -> tuple[list,list]:
+def AddMenu(tabmenu : QtWidgets.QMenu):
     toolList = []
     scriptList = []
 
+    # add module search path to Tools / Scripts directory
     CurrentFilePath = inspect.currentframe().f_code.co_filename
     CurrentDir = os.path.dirname(CurrentFilePath)
     toolpath = os.path.join(CurrentDir,"Tools")
@@ -44,6 +42,7 @@ def AddMenu(tabmenu:QtWidgets.QMenu) -> tuple[list,list]:
     sys.path.append(toolpath)
     sys.path.append(scriptpath)
 
+    # add TabMenu
     tmenu = tabmenu.addMenu("Tools")
     smenu = tabmenu.addMenu("Scripts")
 
@@ -51,6 +50,8 @@ def AddMenu(tabmenu:QtWidgets.QMenu) -> tuple[list,list]:
         if file.endswith(".py"):
             module_name = file[:-3]
             module = importlib.import_module(module_name)
+            
+            # add submenu and connect module
             t = tmenu.addAction(module_name)
             t.triggered.connect(module.ActivateTool)
     
