@@ -13,7 +13,8 @@ Show up plugins in the tab menu from original distribution directory
 
 
 ### Tools
-- define `ActivateTool()` function in the main file<br>
+- define `ActivateTool()` function in the main file
+<br>
     ```
     def ActivateTool():
         # define the Tool name 
@@ -25,7 +26,7 @@ Show up plugins in the tab menu from original distribution directory
     
         else:
             # declare tool
-            tool = <Original Tool>
+            tool = <Original Tool Class declare>
             FBAddTool(tool)
             ShowToolByName(toolName)
     ```
