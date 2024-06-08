@@ -13,7 +13,7 @@ Show up plugins in the tab menu from original distribution directory
 
 
 ### Tools
-- define `ActivateTool()` function in the main file
+- In the main file, define `ActivateTool()` function below  
 
     ```
     def ActivateTool():
