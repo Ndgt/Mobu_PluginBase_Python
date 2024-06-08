@@ -8,7 +8,6 @@ Set the standard of arranging original Python Tools/Scripts
 
     ![alt text](image-1.png)
 <br>
-
 - set two directory in `Users/<username>/MB/<version>/config/PythonStartup`
 
     - `Tools`   : Python Tools registered in FBTools
