@@ -11,7 +11,6 @@ Set the standard of arranging original Python Tools/Scripts
 - set two directory in `Users/<username>/MB/<version>/config/PythonStartup`
     - `Tools`   : Python Tools registered in FBTools
     - `Scripts` : Python Scripts which can be used as module
-
 <br>
 
 ## Rules
