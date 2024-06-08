@@ -4,7 +4,7 @@ Set the standard of arranging original Python Sripts/Tools
 
 ## Concepts
 Show up plugins in the tab menu from original distribution directory
-![alt text](image.png)
+![alt text](image-1.png)
 <br>
 
 
