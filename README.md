@@ -47,7 +47,7 @@ Set the standard of arranging original Python Tools/Scripts
 
 Module name will be extracted from Tools/Scripts path. 
 
-    ```
+    ``` python
     for file in os.listdir(<Tools/Scripts path>):
         if file.endswith(".py"):
             module_name = file[:-3]
@@ -60,3 +60,5 @@ Module name will be extracted from Tools/Scripts path.
             # if Scripts
             m.triggered.connect(module.main())
     ```
+
+<br>
