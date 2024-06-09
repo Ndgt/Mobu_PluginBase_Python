@@ -17,6 +17,7 @@ Set the standard of arranging original Python Tools/Scripts
 ## Rules
 ### Scritps
 - define `main()` to execute all functions in the module
+- script name will be displayed in the menu 
 
 
 ### Tools
@@ -37,3 +38,5 @@ Set the standard of arranging original Python Tools/Scripts
             FBAddTool(tool)
             ShowToolByName(toolName)
     ```
+
+- main script name will be displayed in the manu
