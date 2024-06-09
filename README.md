@@ -43,6 +43,7 @@ Set the standard of arranging original Python Tools/Scripts
 
 ## Mechanism to Add Tool
     Module name will be extracted from Tools/Scripts path. 
+    
     ```
     for file in os.listdir(<Tools/Scripts path>):
         if file.endswith(".py"):
