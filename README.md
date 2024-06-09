@@ -23,7 +23,7 @@ Set the standard of arranging original Python Tools/Scripts
 ### Tools
 - In the main file, define `ActivateTool()` function below  
 
-    ```
+    ~~~ python
     def ActivateTool():
         # define the Tool name 
         toolName = "<tool name>"
@@ -37,7 +37,7 @@ Set the standard of arranging original Python Tools/Scripts
             tool = <Original Tool Class declare>
             FBAddTool(tool)
             ShowToolByName(toolName)
-    ```
+    ~~~
 
 - main script name will be displayed in the manu
 
@@ -47,7 +47,7 @@ Set the standard of arranging original Python Tools/Scripts
 
 Module name will be extracted from Tools/Scripts path. 
 
-    ``` python
+    ~~~ python
         for file in os.listdir(<Tools/Scripts path>):
             if file.endswith(".py"):
                 module_name = file[:-3]
@@ -59,6 +59,6 @@ Module name will be extracted from Tools/Scripts path.
 
                 # if Scripts
                 m.triggered.connect(module.main())
-    ```
+    ~~~
 
 <br>
