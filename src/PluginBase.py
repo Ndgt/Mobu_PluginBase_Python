@@ -22,7 +22,7 @@ def getMainWindow() -> QtWidgets.QWidget:
         return wrapInstance(ptr, QtWidgets.QWidget)
 
 
-# searce and return TabMenu Widget 
+# search and return TabMenu Widget 
 def getTabMenu(win : QtWidgets.QWidget) -> QtWidgets.QMenu:
     if win is not None:
         # Search TabMenu Widget
