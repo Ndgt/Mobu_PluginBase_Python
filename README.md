@@ -44,14 +44,18 @@ Set the standard of arranging original Python Tools/Scripts
 <br>
 
 ## Mechanism to Add Tool
-Module name will be extracted from Tools/Scripts path. 
+In the `PluginBase.py`, module name will be extracted from Tools/Scripts path  
 
 ```python
 for file in os.listdir(<Tools/Scripts path>):
     if file.endswith(".py"):
         module_name = file[:-3]
         module = importlib.import_module(module_name)
-        m = menu.addAction(module_name)
+
+        tabmenu = <TabMenu Widget>
+        
+        
+        m = smenu.addAction(module_name)
 
         # if Tools
         m.triggered.connect(module.ActivateTool())
