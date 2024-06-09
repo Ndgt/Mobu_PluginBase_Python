@@ -48,17 +48,17 @@ Set the standard of arranging original Python Tools/Scripts
 Module name will be extracted from Tools/Scripts path. 
 
     ``` python
-    for file in os.listdir(<Tools/Scripts path>):
-        if file.endswith(".py"):
-            module_name = file[:-3]
-            module = importlib.import_module(module_name)
-            m = menu.addAction(module_name)
+        for file in os.listdir(<Tools/Scripts path>):
+            if file.endswith(".py"):
+                module_name = file[:-3]
+                module = importlib.import_module(module_name)
+                m = menu.addAction(module_name)
 
-            # if Tools
-            m.triggered.connect(module.ActivateTool())
+                # if Tools
+                m.triggered.connect(module.ActivateTool())
 
-            # if Scripts
-            m.triggered.connect(module.main())
+                # if Scripts
+                m.triggered.connect(module.main())
     ```
 
 <br>
