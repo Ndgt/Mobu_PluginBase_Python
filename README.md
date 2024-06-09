@@ -40,3 +40,21 @@ Set the standard of arranging original Python Tools/Scripts
     ```
 
 - main script name will be displayed in the manu
+
+## Mechanism to Add Tool
+    Module name will be extracted from Tools/Scripts path. 
+    ```
+    for file in os.listdir(<Tools/Scripts path>):
+        if file.endswith(".py"):
+            module_name = file[:-3]
+            module = importlib.import_module(module_name)
+            m = menu.addAction(module_name)
+
+            # if Tools
+            m.triggered.connect(module.ActivateTool())
+
+            # if Scripts
+            m.triggered.connect(module.main())
+
+    ```
+    
