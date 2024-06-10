@@ -47,29 +47,29 @@ Set the standard of arranging original Python Tools/Scripts
 In the `PluginBase.py`, module name will be extracted from Tools/Scripts path  
 
 ```python
-    tabmenu = <TabMenu object : QtWidgets.QMenu>
-    tmenu = tabmenu.addMenu("Tools")
-    smenu = tabmenu.addMenu("Scripts")
+tabmenu = <TabMenu object : QtWidgets.QMenu>
+tmenu = tabmenu.addMenu("Tools")
+smenu = tabmenu.addMenu("Scripts")
 
-    # if Tools
-    for file in os.listdir(toolpath):
-        if file.endswith(".py"):
-            module_name = file[:-3]
-            module = importlib.import_module(module_name)
-            
-            # add submenu and connect module
-            t = tmenu.addAction(module_name)
-            t.triggered.connect(module.ActivateTool)
-    
-    # if Scripts
-    for file in os.listdir(scriptpath):
-        if file.endswith(".py"):
-            module_name = file[:-3]
-            module = importlib.import_module(module_name)
+# if Tools
+for file in os.listdir(toolpath):
+    if file.endswith(".py"):
+        module_name = file[:-3]
+        module = importlib.import_module(module_name)
+        
+        # add submenu and connect module
+        t = tmenu.addAction(module_name)
+        t.triggered.connect(module.ActivateTool)
 
-            # add submenu and connect module
-            s = smenu.addAction(module_name)
-            s.triggered.connect(module.main)
+# if Scripts
+for file in os.listdir(scriptpath):
+    if file.endswith(".py"):
+        module_name = file[:-3]
+        module = importlib.import_module(module_name)
+
+        # add submenu and connect module
+        s = smenu.addAction(module_name)
+        s.triggered.connect(module.main)
 ```
 
 <br>
