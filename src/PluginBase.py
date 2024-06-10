@@ -49,7 +49,7 @@ def AddMenu(tabmenu : QtWidgets.QMenu):
         sys.path.append(toolpath)
         sys.path.append(scriptpath)
 
-        # add TabMenu
+        # add menu in TabMenu
         tmenu = tabmenu.addMenu("Tools")
         smenu = tabmenu.addMenu("Scripts")
 
