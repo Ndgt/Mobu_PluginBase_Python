@@ -41,8 +41,11 @@ def AddMenu(tabmenu : QtWidgets.QMenu):
         # add module search path to Tools / Scripts directory
         CurrentFilePath = inspect.currentframe().f_code.co_filename
         CurrentDir = os.path.dirname(CurrentFilePath)
+
+        # directories to store original Tools/Scripts
         toolpath = os.path.join(CurrentDir,"Tools")
         scriptpath = os.path.join(CurrentDir,"Scripts")
+        
         sys.path.append(toolpath)
         sys.path.append(scriptpath)
 
