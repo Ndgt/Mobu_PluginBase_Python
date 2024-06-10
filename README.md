@@ -52,7 +52,7 @@ tmenu = tabmenu.addMenu("Tools")
 smenu = tabmenu.addMenu("Scripts")
 
 # if Tools
-for file in os.listdir(toolpath):
+for file in os.listdir(<toolpath>):
     if file.endswith(".py"):
         module_name = file[:-3]
         module = importlib.import_module(module_name)
@@ -62,7 +62,7 @@ for file in os.listdir(toolpath):
         t.triggered.connect(module.ActivateTool)
 
 # if Scripts
-for file in os.listdir(scriptpath):
+for file in os.listdir(<scriptpath>):
     if file.endswith(".py"):
         module_name = file[:-3]
         module = importlib.import_module(module_name)
