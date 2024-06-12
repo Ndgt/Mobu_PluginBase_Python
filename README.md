@@ -76,7 +76,7 @@ getTabMenu(getMainWindow())
 In the `PluginBase.py`, module name will be extracted from Tools/Scripts path  
 
 ```python
-tabmenu = <TabMenu object : QtWidgets.QMenu>
+tabmenu = <TabMenu instance : QtWidgets.QMenu>
 tmenu = tabmenu.addMenu("Tools")
 smenu = tabmenu.addMenu("Scripts")
 
