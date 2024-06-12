@@ -12,6 +12,14 @@ Set the standard of arranging original Python Tools/Scripts
 
     - `Tools`   : Python Tools registered in FBTools
     - `Scripts` : Python Scripts which can be used as module
+
+<br>
+
+## Usage
+Put data under `src` folder  into `C:/Users/<username>/Documents/MB/<version>/config/PythonStartup` directory
+
+![alt text](image.png)
+
 <br>
 
 ## Rules
