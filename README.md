@@ -39,7 +39,7 @@ Set the standard of arranging original Python Tools/Scripts
             ShowToolByName(toolName)
     ```
 
-- main script name will be displayed in the manu
+- main script name will be displayed in the menu
 
 <br>
 
