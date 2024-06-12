@@ -9,7 +9,7 @@ except:
     from PySide2 import QtWidgets
 
 
-from ui_mainwidget import Ui_toolWidget
+from ui_ActorSetHelper import Ui_toolWidget
 import BodyIndex
 
 
