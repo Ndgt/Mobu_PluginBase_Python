@@ -18,7 +18,7 @@ Set the standard of arranging original Python Tools/Scripts
 ## Usage
 Put data under `src` folder  into `C:/Users/<username>/Documents/MB/<version>/config/PythonStartup` directory
 
-![alt text](image.png)
+![alt text](image-2.png)
 
 <br>
 
