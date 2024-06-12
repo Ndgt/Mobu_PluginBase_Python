@@ -15,12 +15,12 @@ Set the standard of arranging original Python Tools/Scripts
 <br>
 
 ## Rules
-### Scritps
+### In the Scripts
 - define `main()` to execute all functions in the module
 - script name will be displayed in the menu 
 
 
-### Tools
+### In the Tools
 - In the main file, define `ActivateTool()` function below  
 
     ```python
