@@ -44,6 +44,35 @@ Set the standard of arranging original Python Tools/Scripts
 <br>
 
 ## Mechanism to Add Tool
+### Get Access to Main window
+[pyfbsdk.FBGetmainWindow()](https://help.autodesk.com/cloudhelp/2025/ENU/MOBU-PYTHON-API-REF/namespacepyfbsdk.html#a168c7b3df16bd9358f8326cd57167134) can return the MotionBuilder main window.<br>
+Searching its children widgets and find TabMenu : QtWidgets.QMenu.
+
+```python
+def getMainWindow() -> QtWidgets.QWidget:
+    ptr = FBGetMainWindow()
+    if ptr is not None:
+        # convert the pointer to QWidget instance
+        return wrapInstance(ptr, QtWidgets.QWidget)
+
+
+# search and return TabMenu Widget 
+def getTabMenu(win : QtWidgets.QWidget) -> QtWidgets.QMenu:
+    if win is not None:
+        # Search TabMenu Widget
+        for child in win.children():
+            if not str(type(child)).find("QtWidgets.QWidget") == -1:
+                for childwidget in child.children():
+                    if not str(type(childwidget)).find("QtWidgets.QMenuBar") == -1:
+                        return childwidget
+
+getTabMenu(getMainWindow())
+```
+
+
+<br>
+
+### Add TabMenu
 In the `PluginBase.py`, module name will be extracted from Tools/Scripts path  
 
 ```python
