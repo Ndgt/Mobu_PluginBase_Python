@@ -1,55 +1,44 @@
 # -*- coding: utf-8
 
-import sys,os,inspect,importlib
+import os, sys, inspect, importlib
 from pyfbsdk import FBGetMainWindow
 
 # for MotionBuilder 2025
 try:
-    from PySide6 import QtWidgets
+    from PySide6.QtWidgets import QMainWindow, QMenuBar
     from shiboken6 import wrapInstance
 
 # for MotionBuilder -2024
 except:
-    from PySide2 import QtWidgets
+    from PySide2.QtWidgets import QMainWindow, QMenuBar
     from shiboken2 import wrapInstance
 
 
-# get the widget of Motionbuilder main window 
-def getMainWindow() -> QtWidgets.QWidget:
-    ptr = FBGetMainWindow()
-    if ptr is not None:
-        # convert the pointer to QWidget instance
-        return wrapInstance(ptr, QtWidgets.QWidget)
+# get menubar
+def getMenubar() -> QMenuBar:
+    pMainW = FBGetMainWindow()
+    if pMainW:
+        MainW = wrapInstance(pMainW, QMainWindow)
+        menubar = MainW.menuWidget().children()[1]
+        return menubar
 
-
-# search and return TabMenu Widget 
-def getTabMenu(win : QtWidgets.QWidget) -> QtWidgets.QMenu:
-    if win is not None:
-        # Search TabMenu Widget
-        for child in win.children():
-            if not str(type(child)).find("QtWidgets.QWidget") == -1:
-                for childwidget in child.children():
-                    if not str(type(childwidget)).find("QtWidgets.QMenuBar") == -1:
-                        return childwidget
-
-# Add menu in TabMenu
-def AddMenu(tabmenu : QtWidgets.QMenu):
-    if tabmenu is not None:
-        toolList = []
-        scriptList = []
-
+# Add menu in MenuBar
+def AddMenu(mbar : QMenuBar):
+    if mbar is not None:
         CurrentFilePath = inspect.currentframe().f_code.co_filename
         CurrentDir = os.path.dirname(CurrentFilePath)
 
-        # add module search path to Tools/Scripts directory     
-        toolpath = os.path.join(CurrentDir,"Tools")
+        # directories to store original Tools/Scripts
+        toolpath   = os.path.join(CurrentDir,"Tools")
         scriptpath = os.path.join(CurrentDir,"Scripts")
+
+        # add module search path to Tools/Scripts directory        
         sys.path.append(toolpath)
         sys.path.append(scriptpath)
 
         # add menu in TabMenu
-        tmenu = tabmenu.addMenu("Tools")
-        smenu = tabmenu.addMenu("Scripts")
+        tmenu = mbar.addMenu("Tools")
+        smenu = mbar.addMenu("Scripts")
 
         # if Tools
         for file in os.listdir(toolpath):
@@ -73,6 +62,5 @@ def AddMenu(tabmenu : QtWidgets.QMenu):
 
 
 if __name__ in ("__main__", "builtins"):
-    mainwindow = getMainWindow()
-    tabmenu = getTabMenu(mainwindow)
-    AddMenu(tabmenu)
+    menubar = getMenubar()
+    AddMenu(menubar)
