@@ -15,7 +15,7 @@ Set the standard of arranging original Python Tools/Scripts
 
 <br>
 
-## Usage
+## Usage of Example
 Put data under `src` folder  into `C:/Users/<username>/Documents/MB/<version>/config/PythonStartup` directory
 
 ![alt text](image-2.png)
@@ -24,30 +24,29 @@ Put data under `src` folder  into `C:/Users/<username>/Documents/MB/<version>/co
 
 ## Rules
 ### In the Scripts
-- define `main()` to execute all functions in the module
-- script name will be displayed in the menu 
+ define `main()` function to execute all functions in the module
+
 
 
 ### In the Tools
-- In the main file, define `ActivateTool()` function below  
+In the main file, define `ActivateTool()` function below  
 
-    ```python
-    def ActivateTool():
-        # define the Tool name 
-        toolName = "<tool name>"
+```python
+def ActivateTool():
+    # define the Tool name 
+    toolName = "<tool name>"
 
-        # check the Tool already created
-        if toolName in FBToolList:
-            ShowToolByName(toolName)
-    
-        else:
-            # declare tool
-            tool = <Original Tool Class declare>
-            FBAddTool(tool)
-            ShowToolByName(toolName)
-    ```
+    # check the Tool already created
+    if toolName in FBToolList:
+        ShowToolByName(toolName)
 
-- main script name will be displayed in the menu
+    else:
+        # declare tool
+        tool = <Original Tool Class declare>
+        FBAddTool(tool)
+        ShowToolByName(toolName)
+```
+
 
 <br>
 
@@ -67,10 +66,10 @@ def getMenubar() -> QMenuBar:
         menubar = MainW.menuWidget().children()[1]
         return menubar
 ```
-<br>
+
 
 ### Add Menu
-In the `PluginBase.py`, module name will be extracted from Tools/Scripts path  
+`PluginBase.py` extracts module name from Tools/Scripts path.  
 
 ```python
 mbar  = getMenubar()
@@ -80,6 +79,7 @@ smenu = mbar.addMenu("Scripts")
 # if Tools
 for file in os.listdir(<toolpath>):
     if file.endswith(".py"):
+        # extract module name to import
         module_name = file[:-3]
         module = importlib.import_module(module_name)
         
@@ -90,6 +90,7 @@ for file in os.listdir(<toolpath>):
 # if Scripts
 for file in os.listdir(<scriptpath>):
     if file.endswith(".py"):
+        # extract module name to import
         module_name = file[:-3]
         module = importlib.import_module(module_name)
 
