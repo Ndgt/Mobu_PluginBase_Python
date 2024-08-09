@@ -51,42 +51,31 @@ Put data under `src` folder  into `C:/Users/<username>/Documents/MB/<version>/co
 
 <br>
 
-## Mechanism to Add Tool
-### Get Access to Main window
+## Mechanism
+### Get Access to MenuBar
 [pyfbsdk.FBGetmainWindow()](https://help.autodesk.com/cloudhelp/2025/ENU/MOBU-PYTHON-API-REF/namespacepyfbsdk.html#a168c7b3df16bd9358f8326cd57167134) can return the MotionBuilder main window.<br>
-Searching its children widgets and find TabMenu : QtWidgets.QMenu.
+One of the child widget contains MenuBar, to which add new menu.
+
 
 ```python
-def getMainWindow() -> QtWidgets.QWidget:
-    ptr = FBGetMainWindow()
-    if ptr is not None:
-        # convert the pointer to QWidget instance
-        return wrapInstance(ptr, QtWidgets.QWidget)
-
-
-# search and return TabMenu Widget 
-def getTabMenu(win : QtWidgets.QWidget) -> QtWidgets.QMenu:
-    if win is not None:
-        # Search TabMenu Widget
-        for child in win.children():
-            if not str(type(child)).find("QtWidgets.QWidget") == -1:
-                for childwidget in child.children():
-                    if not str(type(childwidget)).find("QtWidgets.QMenuBar") == -1:
-                        return childwidget
-
-getTabMenu(getMainWindow())
+def getMenubar() -> QMenuBar:
+    # get Main Window
+    pMainW = FBGetMainWindow()
+    if pMainW:
+        #Convert pointer to any non-inappropriate type
+        MainW = wrapInstance(pMainW, QMainWindow)
+        menubar = MainW.menuWidget().children()[1]
+        return menubar
 ```
-
-
 <br>
 
-### Add TabMenu
+### Add Menu
 In the `PluginBase.py`, module name will be extracted from Tools/Scripts path  
 
 ```python
-tabmenu = <TabMenu instance : QtWidgets.QMenu>
-tmenu = tabmenu.addMenu("Tools")
-smenu = tabmenu.addMenu("Scripts")
+mbar  = getMenubar()
+tmenu = mbar.addMenu("Tools")
+smenu = mbar.addMenu("Scripts")
 
 # if Tools
 for file in os.listdir(<toolpath>):
@@ -94,7 +83,7 @@ for file in os.listdir(<toolpath>):
         module_name = file[:-3]
         module = importlib.import_module(module_name)
         
-        # add submenu and connect module
+        # add action to invoke tool function
         t = tmenu.addAction(module_name)
         t.triggered.connect(module.ActivateTool)
 
@@ -104,7 +93,7 @@ for file in os.listdir(<scriptpath>):
         module_name = file[:-3]
         module = importlib.import_module(module_name)
 
-        # add submenu and connect module
+        # add action to invoke tool function
         s = smenu.addAction(module_name)
         s.triggered.connect(module.main)
 ```
