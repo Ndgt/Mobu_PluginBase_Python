@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>toolWidget</class>
- <widget class="QWidget" name="toolWidget">
+ <class>childWidget</class>
+ <widget class="QWidget" name="childWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>300</width>
-    <height>275</height>
+    <width>330</width>
+    <height>273</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -157,18 +157,12 @@
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Adjust Actor Size ( small &amp;lt;--&amp;gt; big )&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set>
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QSlider" name="horizontalSlider">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="minimum">
           <number>1</number>
          </property>
@@ -178,11 +172,8 @@
          <property name="sliderPosition">
           <number>50</number>
          </property>
-         <property name="tracking">
-          <bool>false</bool>
-         </property>
          <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -217,5 +208,111 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>CreateButton</sender>
+   <signal>clicked()</signal>
+   <receiver>childWidget</receiver>
+   <slot>CreateActor_MarkerSet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>137</x>
+     <y>40</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>11</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>FitTrackerButton</sender>
+   <signal>clicked()</signal>
+   <receiver>childWidget</receiver>
+   <slot>FitToTrackers()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>37</x>
+     <y>93</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>114</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>RotateButton</sender>
+   <signal>clicked()</signal>
+   <receiver>childWidget</receiver>
+   <slot>RotateYdeg()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>234</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>291</x>
+     <y>155</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ResetButton</sender>
+   <signal>clicked()</signal>
+   <receiver>childWidget</receiver>
+   <slot>ResetAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>274</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>301</x>
+     <y>55</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BindButton</sender>
+   <signal>clicked()</signal>
+   <receiver>childWidget</receiver>
+   <slot>BindMarkerModel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>167</x>
+     <y>253</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>185</x>
+     <y>273</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>childWidget</receiver>
+   <slot>AdjustActorSize()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>175</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>327</x>
+     <y>190</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>CreateActor_MarkerSet()</slot>
+  <slot>FitToTrackers()</slot>
+  <slot>RotateYdeg()</slot>
+  <slot>ResetAll()</slot>
+  <slot>AdjustActorSize()</slot>
+  <slot>BindMarkerModel()</slot>
+  <slot>slot1()</slot>
+ </slots>
 </ui>

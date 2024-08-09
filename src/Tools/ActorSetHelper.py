@@ -1,69 +1,74 @@
+
 # -*- coding: utf-8 -*-
+
+# 以下の指定配布先はデフォルトでモジュール探索パスに含まれる
+# C:\Program Files\Autodesk\MotionBuilder <version>\bin\config\PythonStartup
 
 from pyfbsdk import*
 from pyfbsdk_additions import*
+from ActorSetHelper_src import QWidgetConfigure
 
 try:
-    # for MotionBuilder 2025
-    from PySide6 import QtWidgets
+    # MotionBuilder 2025 向け
+    from PySide6.QtWidgets import QWidget
     from shiboken6 import wrapInstance, getCppPointer
      
 except:
-    # for MotionBuilder -2024
-    from PySide2 import QtWidgets
+    # MotionBuilder 2024 向け
+    from PySide2.QtWidgets import QWidget
     from shiboken2 import wrapInstance, getCppPointer    
 
 
-import sys,os,inspect
-CurrentFilePath = inspect.currentframe().f_code.co_filename
-CurrentDir = os.path.dirname(CurrentFilePath)
-targetPath = os.path.join(CurrentDir,"ActorSetHelper_Source")
-sys.path.append(targetPath)
+# Qt製Widgetを保持するクラス
+class WigHolder(FBWidgetHolder):
+    
+    # Qt製Widgetをインスタンス化するための、オーバーライドした関数
+    def WidgetCreate(self, pParent):
 
-import UIfunctions
+        # wrapInstance()はポインターを不適切ではない任意の型に変換する
+        parentwidget = wrapInstance(pParent, QWidget) 
+        
+        self.childwidget = QWidgetConfigure.ChildWidget(parentwidget)
+        return getCppPointer(self.childwidget)[0]
 
 
-class WidgetHolder(FBWidgetHolder):
-    def WidgetCreate(self, pWigParent):
-        self.ParentedWidgetObject = UIfunctions.ParentedWidget(wrapInstance(pWigParent, QtWidgets.QWidget))
-        return getCppPointer(self.ParentedWidgetObject)[0]
-
-class WigTool(FBTool):
+# 大本のToolクラス
+class tActorSetHelper(FBTool):
     def PopulateLayout(self):
         x = FBAddRegionParam(0, FBAttachType.kFBAttachLeft,"")
         y = FBAddRegionParam(0, FBAttachType.kFBAttachTop,"")
         w = FBAddRegionParam(0, FBAttachType.kFBAttachRight,"")
         h = FBAddRegionParam(0, FBAttachType.kFBAttachBottom,"")
         
-        # region name, display name, x,y,w,h
-        self.AddRegion("ParentedWidget", "ActorSetHelper", x,y,w,h)
+        # 子Widgetの表示領域を確保
+        self.AddRegion("ChildWidget", "ActorSetHelper", x, y, w, h)
         
-        # give a Control in the region to the Widget object
-        self.SetControl("ParentedWidget", self.WidgetHolderObject)
+        # Qt製Widgetを保持したオブジェクトに対して、表示領域の制御を許可
+        self.SetControl("ChildWidget", self.wigholder)
 
-    def __init__(self,name):
+    def __init__(self, name):
         super().__init__(name)
-        self.WidgetHolderObject = WidgetHolder()
+        self.wigholder = WigHolder()
         self.PopulateLayout()
 
-        # set the size of UI first displayed
+        # 初回表示サイズと最大・最小サイズの指定
         self.StartSizeX = 300
         self.StartSizeY = 275
+        self.MinSizeX   = 200
+        self.MinSizeY   = 175
+        self.MaxSizeX   = 400
+        self.MaxSizeY   = 375
 
-
-'''
-This Function Must Be Defined
-'''
 def ActivateTool():
-    # define the Tool name
-    toolName = "ActorSetHelper"
+    # define the Tool name 
+    toolName = "<tool name>"
 
     # check the Tool already created
     if toolName in FBToolList:
         ShowToolByName(toolName)
-    
+
     else:
         # declare tool
-        tool = WigTool(toolName)
+        tool = tActorSetHelper(toolName)
         FBAddTool(tool)
         ShowToolByName(toolName)
