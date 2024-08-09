@@ -4,14 +4,14 @@ Set the standard of arranging original Python Tools/Scripts
 <br>
 
 ## Concepts
-- Show up plugins in the tab menu from original distribution directory
+In the Menubar, add new menu to invoke original Scripts/Tools
 
-    ![alt text](image-1.png)
+  ![alt text](image-1.png)
 
-    set two directory in `Users/<username>/Documents/MB/<version>/config/PythonStartup` folder
+set the following directories in `Users/<username>/Documents/MB/<version>/config/PythonStartup` folder.
 
-    - `Tools`   : Python Tools registered in FBTools
-    - `Scripts` : Python Scripts which can be used as module
+- `Tools`   : Python Tools registered in FBTools
+- `Scripts` : Python Scripts which can be used as module
 
 <br>
 
