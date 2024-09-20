@@ -8,14 +8,14 @@
 #   with-sources: false
 
 -e file:.
-pyside6==6.7.1
+pyside6==6.5.3
     # via mobu-pypluginarrange
-pyside6-addons==6.7.1
+pyside6-addons==6.5.3
     # via pyside6
-pyside6-essentials==6.7.1
+pyside6-essentials==6.5.3
     # via pyside6
     # via pyside6-addons
-shiboken6==6.7.1
+shiboken6==6.5.3
     # via pyside6
     # via pyside6-addons
     # via pyside6-essentials

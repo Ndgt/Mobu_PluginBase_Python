@@ -3,7 +3,7 @@ name = "mobu-pypluginarrange"
 version = "0.1.0"
 description = "Add your description here"
 dependencies = [
-    "PySide6>=6.7.0"
+    "pyside6==6.5.3",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
