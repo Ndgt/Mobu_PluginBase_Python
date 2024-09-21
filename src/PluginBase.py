@@ -1,20 +1,22 @@
 # -*- coding: utf-8
 
-import os, sys, inspect, importlib
-from pyfbsdk import FBGetMainWindow
+import importlib
+from pathlib import Path
+from pyfbsdk import FBGetMainWindow, FBApplication
 
-# for MotionBuilder 2025
+
+# MotionBuilder 2025 向け
 try:
     from PySide6.QtWidgets import QMainWindow, QMenuBar
     from shiboken6 import wrapInstance
 
-# for MotionBuilder -2024
+# for MotionBuilder 2024 向け
 except:
     from PySide2.QtWidgets import QMainWindow, QMenuBar
     from shiboken2 import wrapInstance
 
 
-# get menubar
+# メニューバーの取得
 def getMenubar() -> QMenuBar:
     pMainW = FBGetMainWindow()
     if pMainW:
@@ -22,44 +24,38 @@ def getMenubar() -> QMenuBar:
         menubar = MainW.menuWidget().children()[1]
         return menubar
 
-# Add menu in MenuBar
+def menuEvent(_state, path):
+    FBApplication().ExecuteScript()
+
+# メニューバーへのメニューの追加
 def AddMenu(mbar : QMenuBar):
     if mbar is not None:
-        CurrentFilePath = inspect.currentframe().f_code.co_filename
-        CurrentDir = os.path.dirname(CurrentFilePath)
+        PluginBaseDir = Path(__file__).resolve().parent
 
-        # directories to store original Tools/Scripts
-        toolpath   = os.path.join(CurrentDir,"Tools")
-        scriptpath = os.path.join(CurrentDir,"Scripts")
+        # 独自のツールおよびスクリプトを格納する先のディレクトリ
+        tools_dir   = PluginBaseDir / "Tools"
+        scripts_dir = PluginBaseDir / "Scripts"
 
-        # add module search path to Tools/Scripts directory        
-        sys.path.append(toolpath)
-        sys.path.append(scriptpath)
-
-        # add menu in TabMenu
+        # 空のメニューを追加
         tmenu = mbar.addMenu("Tools")
         smenu = mbar.addMenu("Scripts")
 
-        # if Tools
-        for file in os.listdir(toolpath):
-            if file.endswith(".py"):
-                module_name = file[:-3]
+        # ツールの場合
+        for tools_filepath in tools_dir.iterdir():
+            if str(tools_filepath).endswith(".py"):
+                module_name = tools_filepath.stem
                 module = importlib.import_module(module_name)
                 
                 # add submenu and connect module
                 t = tmenu.addAction(module_name)
                 t.triggered.connect(module.ActivateTool)
         
-        # if Scripts
-        for file in os.listdir(scriptpath):
-            if file.endswith(".py"):
-                module_name = file[:-3]
-                module = importlib.import_module(module_name)
-
-                # add submenu and connect module
-                s = smenu.addAction(module_name)
-                s.triggered.connect(module.main)
-
+        # スクリプトの場合
+        for script_filepath in scripts_dir.iterdir():
+            if str(script_filepath).endswith(".py"):
+                s = smenu.addAction(script_filepath.stem)
+                script_filepath_str = str(script_filepath) 
+                s.triggered.connect(lambda check=False, sp = script_filepath_str : FBApplication().ExecuteScript(sp))
 
 if __name__ in ("__main__", "builtins"):
     menubar = getMenubar()
