@@ -1,8 +1,4 @@
 # Mobu-PluginBase-Python
-Set the standard of arranging original Python Tools/Scripts
-
-<br>
-
 ## 概要
 独自のツール・スクリプトを起動するメニューをメニューバーに追加する。
 
