@@ -3,33 +3,24 @@ Set the standard of arranging original Python Tools/Scripts
 
 <br>
 
-## Concepts
-In the Menubar, add new menu to invoke original Scripts/Tools
+## 概要
+独自のツール・スクリプトを起動するメニューをメニューバーに追加する。
 
   ![alt text](image-1.png)
 
-set the following directories in `Users/<username>/Documents/MB/<version>/config/PythonStartup` folder.
+以下の2つのフォルダを `C/Program Files/Autodesk/MotionBuilder <version>/bin//config/PythonStartup` ディレクトリに作成。独自のファイルをここに格納する。
 
-- `Tools`   : Python Tools registered in FBTools
-- `Scripts` : Python Scripts which can be used as module
+- `Tools`   : FBToolListに登録されるツール
+- `Scripts` : 単純なスクリプト
+
+また、同ディレクトリに`PluginBase.py`を配置する。
+
 
 <br>
 
-## Usage of Example
-Put data under `src` folder  into `C:/Users/<username>/Documents/MB/<version>/config/PythonStartup` directory
-
-![alt text](image-2.png)
-
-<br>
-
-## Rules
-### In the Scripts
- define `main()` function to execute all functions in the module
-
-
-
-### In the Tools
-In the main file, define `ActivateTool()` function below  
+## 規則
+### ツール内
+メインのファイルにて、以下の`ActivateTool()` 関数を定義する。
 
 ```python
 def ActivateTool():
@@ -50,10 +41,10 @@ def ActivateTool():
 
 <br>
 
-## Mechanism
-### Get Access to MenuBar
-[pyfbsdk.FBGetmainWindow()](https://help.autodesk.com/cloudhelp/2025/ENU/MOBU-PYTHON-API-REF/namespacepyfbsdk.html#a168c7b3df16bd9358f8326cd57167134) can return the MotionBuilder main window.<br>
-One of the child widget contains MenuBar, to which add new menu.
+## 仕組み
+### メニューバーへのアクセス
+[pyfbsdk.FBGetmainWindow()](https://help.autodesk.com/cloudhelp/2025/ENU/MOBU-PYTHON-API-REF/namespacepyfbsdk.html#a168c7b3df16bd9358f8326cd57167134) はMotionBuilderのメインウィンドウのポインタを返す。<br>
+メインウィンドウの子ウィジェットの一つが、上部のメニューバー。
 
 
 ```python
@@ -68,7 +59,7 @@ def getMenubar() -> QMenuBar:
 ```
 
 
-### Add Menu
+### メニューの追加
 `PluginBase.py` extracts module name from Tools/Scripts path.  
 
 ```python
@@ -76,27 +67,21 @@ mbar  = getMenubar()
 tmenu = mbar.addMenu("Tools")
 smenu = mbar.addMenu("Scripts")
 
-# if Tools
-for file in os.listdir(<toolpath>):
-    if file.endswith(".py"):
-        # extract module name to import
-        module_name = file[:-3]
+# if tools
+for tools_filepath in tools_dir.iterdir():
+    if str(tools_filepath).endswith(".py"):
+        module_name = tools_filepath.stem
         module = importlib.import_module(module_name)
         
-        # add action to invoke tool function
+        # add submenu and connect module
         t = tmenu.addAction(module_name)
         t.triggered.connect(module.ActivateTool)
 
-# if Scripts
-for file in os.listdir(<scriptpath>):
-    if file.endswith(".py"):
-        # extract module name to import
-        module_name = file[:-3]
-        module = importlib.import_module(module_name)
+# if scripts
+for script_filepath in scripts_dir.iterdir():
+    if str(script_filepath).endswith(".py"):
+        s = smenu.addAction(script_filepath.stem)
+        script_filepath_str = str(script_filepath) 
+        s.triggered.connect(lambda check=False, sp = script_filepath_str : FBApplication().ExecuteScript(sp))
 
-        # add action to invoke tool function
-        s = smenu.addAction(module_name)
-        s.triggered.connect(module.main)
 ```
-
-<br>
