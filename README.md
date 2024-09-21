@@ -56,7 +56,7 @@ def getMenubar() -> QMenuBar:
 
 
 ### メニューの追加
-`PluginBase.py` extracts module name from Tools/Scripts path.  
+`PluginBase.py`においてメニュー追加と実行するファイルの接続を設定する。
 
 ```python
 mbar  = getMenubar()
