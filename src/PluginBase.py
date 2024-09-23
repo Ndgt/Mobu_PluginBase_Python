@@ -24,9 +24,6 @@ def getMenubar() -> QMenuBar:
         menubar = MainW.menuWidget().children()[1]
         return menubar
 
-def menuEvent(_state, path):
-    FBApplication().ExecuteScript()
-
 # メニューバーへのメニューの追加
 def AddMenu(mbar : QMenuBar):
     if mbar is not None:
