@@ -51,8 +51,7 @@ def AddMenu(mbar : QMenuBar):
         for script_filepath in scripts_dir.iterdir():
             if str(script_filepath).endswith(".py"):
                 s = smenu.addAction(script_filepath.stem)
-                script_filepath_str = str(script_filepath) 
-                s.triggered.connect(lambda check=False, sp = script_filepath_str : FBApplication().ExecuteScript(sp))
+                s.triggered.connect(lambda check=False, sp = str(script_filepath) : FBApplication().ExecuteScript(sp))
 
 if __name__ in ("__main__", "builtins"):
     menubar = getMenubar()
