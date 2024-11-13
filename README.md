@@ -1,22 +1,29 @@
 # Mobu-PluginBase-Python
-## 概要
-独自のツール・スクリプトを起動するメニューをメニューバーに追加する。
+Original Mobu Python Scripts for daily use
 
+<br>
+
+## Usage
   ![alt text](image-1.png)
 
-以下の2つのフォルダを `C/Program Files/Autodesk/MotionBuilder <version>/bin//config/PythonStartup` ディレクトリに作成。独自のファイルをここに格納する。
+Create `Tools` and `Scripts` Folder and stor `PluginBase.py` in the Python Startup Folder.
 
-- `Tools`   : FBToolListに登録されるツール
-- `Scripts` : 単純なスクリプト
+- `Tools`   : Folder for tools which will be stored in FBToolList
+- `Scripts` : Folder for simple scritps
+- `PluginBase.py` : Imported by Mobu System, then create Menu and associate scripts with it
 
-また、同ディレクトリに`PluginBase.py`を配置する。
+<br>
+
+The following image shows how to arrange them.
+
+![alt text](image-2.png)
 
 
 <br>
 
-## 規則
-### ツール内
-メインのファイルにて、以下の`ActivateTool()` 関数を定義する。
+## Rules
+### In the Tools
+Define the following `ActivateTool()` function in the main Script.
 
 ```python
 def ActivateTool():
@@ -37,10 +44,10 @@ def ActivateTool():
 
 <br>
 
-## 仕組み
-### メニューバーへのアクセス
-[pyfbsdk.FBGetmainWindow()](https://help.autodesk.com/cloudhelp/2025/ENU/MOBU-PYTHON-API-REF/namespacepyfbsdk.html#a168c7b3df16bd9358f8326cd57167134) はMotionBuilderのメインウィンドウのポインタを返す。<br>
-メインウィンドウの子ウィジェットの一つが、上部のメニューバー。
+## How it works
+### Access to the Menubar
+[pyfbsdk.FBGetmainWindow()](https://help.autodesk.com/cloudhelp/2025/ENU/MOBU-PYTHON-API-REF/namespacepyfbsdk.html#a168c7b3df16bd9358f8326cd57167134) returns the pointer to the MotionBuilder's Mainwindow.<br>
+One of the child widget of the Mainwindow is that Menubar.
 
 
 ```python
@@ -53,10 +60,10 @@ def getMenubar() -> QMenuBar:
         menubar = MainW.menuWidget().children()[1]
         return menubar
 ```
+<br>
 
-
-### メニューの追加
-`PluginBase.py`においてメニュー追加と実行するファイルの接続を設定する。
+### Addition of Menu
+`PluginBase.py` creates a Menu and associate scripts with it.
 
 ```python
 mbar  = getMenubar()
