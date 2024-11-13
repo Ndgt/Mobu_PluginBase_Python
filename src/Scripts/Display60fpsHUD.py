@@ -26,7 +26,7 @@ ActivePaneIndex = renderer.GetSelectedPaneIndex()
 renderer.GetCameraInPane(ActivePaneIndex).ConnectSrc(lHud)
 
 # create custom property
-customprop = lHud.PropertyCreate("test prop", FBPropertyType.kFBPT_double, "Number", True, True, None)
+customprop = lHud.PropertyCreate("custom prop", FBPropertyType.kFBPT_double, "Number", True, True, None)
 
 # Animate custom property
 customprop.SetAnimated(True)
@@ -58,6 +58,12 @@ multiplyInput_a = FindAnimationNode(multiplybox.AnimationNodeInGet(), "a")
 multiplyInput_b = FindAnimationNode(multiplybox.AnimationNodeInGet(), "b")
 multiplyOutput = FindAnimationNode(multiplybox.AnimationNodeOutGet(), "Result")
 dstboxInput = FindAnimationNode(dstbox.AnimationNodeInGet(), customprop.Name)
+
+# adjust box position
+lConstraint.SetBoxPosition(srcbox,       150, 100)
+lConstraint.SetBoxPosition(timetosecbox, 300, 200)
+lConstraint.SetBoxPosition(multiplybox,  450,   0)
+lConstraint.SetBoxPosition(dstbox,       600, 100)
 
 # connect boxes
 if(srcboxOutput and timetosecboxInput and timetosecboxOutput 
