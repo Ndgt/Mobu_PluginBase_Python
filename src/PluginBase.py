@@ -39,8 +39,9 @@ def AddMenu(mbar : QMenuBar):
         for tools_filepath in tools_dir.iterdir():
             if str(tools_filepath).endswith(".py"):
                 FBApplication().ExecuteScript(str(tools_filepath))
+                
+                # add submenu
                 module_name = tools_filepath.stem
-                # add submenu and connect module
                 t = tmenu.addAction(module_name)
                 t.triggered.connect(lambda check=False, name=module_name : ShowToolByName(name))
         
