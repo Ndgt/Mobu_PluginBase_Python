@@ -23,8 +23,8 @@ The following image shows how to arrange them.
 
 ## Rules
 ### In the Tools
-The Tool name must be the same as its module.
-
+- The tool name must be identical to its module.
+- Do not show tool, just create and add to FBToolList using `FBAddTool()`
 <br>
 
 ## How it works
