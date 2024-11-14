@@ -19,6 +19,10 @@ The following image shows how to arrange them.
 ![alt text](images/image-2.png)
 
 
+### Installer
+These modules can be installed automatically using `Installer/PluginBase_Setup.exe`.<br>
+Note: For Windows only
+
 <br>
 
 ## Rules
