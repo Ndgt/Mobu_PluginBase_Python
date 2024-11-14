@@ -46,7 +46,8 @@ def getMenubar() -> QMenuBar:
 <br>
 
 ### Addition of Menu
-`PluginBase.py` creates a Menu and associate scripts with it.
+`PluginBase.py` creates a Menu and associate scripts with it.<br>
+Note that `QtGui.QAction.triggered()` has `checked` bool parameter.
 
 ```python
 mbar  = getMenubar()
@@ -61,12 +62,12 @@ for tools_filepath in tools_dir.iterdir():
         # add submenu
         module_name = tools_filepath.stem
         t = tmenu.addAction(module_name)
-        t.triggered.connect(lambda check=False, name=module_name : ShowToolByName(name))
+        t.triggered.connect(lambda checked=False, name=module_name : ShowToolByName(name))
 
 # if scripts
 for script_filepath in scripts_dir.iterdir():
     if str(script_filepath).endswith(".py"):
         s = smenu.addAction(script_filepath.stem)
-        s.triggered.connect(lambda check=False, sp = str(script_filepath) : FBApplication().ExecuteScript(sp))
+        s.triggered.connect(lambda checked=False, sp = str(script_filepath) : FBApplication().ExecuteScript(sp))
 
 ```
