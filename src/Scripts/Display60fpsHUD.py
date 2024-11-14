@@ -11,7 +11,7 @@ lPlayer.SetTransportFps(FBTimeMode.kFBTimeMode60Frames)
 # configure text hud element
 lHud = FBHUD("CustomHUD")
 lHud_frames = FBHUDTextElement("Previs_frames")
-lHud_frames.Content = "frame in 60 fps : "
+lHud_frames.Content = "frame in 60 fps : %.1f"
 lHud_frames.X = 0
 lHud_frames.Y = 0
 lHud_frames.Height = 7
