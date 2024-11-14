@@ -23,24 +23,7 @@ The following image shows how to arrange them.
 
 ## Rules
 ### In the Tools
-Define the following `ActivateTool()` function in the main Script.
-
-```python
-def ActivateTool():
-    # define the Tool name 
-    toolName = "<tool name>"
-
-    # check the Tool already created
-    if toolName in FBToolList:
-        ShowToolByName(toolName)
-
-    else:
-        # declare tool
-        tool = <Original Tool Class declare>
-        FBAddTool(tool)
-        ShowToolByName(toolName)
-```
-
+The Tool name must be the same as its module.
 
 <br>
 
@@ -73,12 +56,12 @@ smenu = mbar.addMenu("Scripts")
 # if tools
 for tools_filepath in tools_dir.iterdir():
     if str(tools_filepath).endswith(".py"):
-        module_name = tools_filepath.stem
-        module = importlib.import_module(module_name)
+        FBApplication().ExecuteScript(str(tools_filepath))
         
-        # add submenu and connect module
+        # add submenu
+        module_name = tools_filepath.stem
         t = tmenu.addAction(module_name)
-        t.triggered.connect(module.ActivateTool)
+        t.triggered.connect(lambda check=False, name=module_name : ShowToolByName(name))
 
 # if scripts
 for script_filepath in scripts_dir.iterdir():
