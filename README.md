@@ -4,7 +4,7 @@ Original Mobu Python Scripts for daily use
 <br>
 
 ## Usage
-  ![alt text](image-1.png)
+  ![alt text](images/image-1.png)
 
 Create `Tools` and `Scripts` Folder and stor `PluginBase.py` in the Python Startup Folder.
 
@@ -16,7 +16,7 @@ Create `Tools` and `Scripts` Folder and stor `PluginBase.py` in the Python Start
 
 The following image shows how to arrange them.
 
-![alt text](image-2.png)
+![alt text](images/image-2.png)
 
 
 <br>
