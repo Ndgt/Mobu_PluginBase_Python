@@ -1,8 +1,8 @@
 # -*- coding: utf-8
 
-import importlib
 from pathlib import Path
-from pyfbsdk import FBGetMainWindow, FBApplication
+from pyfbsdk import FBGetMainWindow, FBApplication, ShowToolByName
+from pyfbsdk_additions import FBToolList
 
 
 # for MotionBuilder 2025
@@ -38,12 +38,11 @@ def AddMenu(mbar : QMenuBar):
         # if tools
         for tools_filepath in tools_dir.iterdir():
             if str(tools_filepath).endswith(".py"):
+                FBApplication().ExecuteScript(str(tools_filepath))
                 module_name = tools_filepath.stem
-                module = importlib.import_module(module_name)
-                
                 # add submenu and connect module
                 t = tmenu.addAction(module_name)
-                t.triggered.connect(module.ActivateTool)
+                t.triggered.connect(lambda check=False, name=module_name : ShowToolByName(name))
         
         # if scripts
         for script_filepath in scripts_dir.iterdir():
