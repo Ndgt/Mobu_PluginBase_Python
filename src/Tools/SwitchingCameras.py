@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# 基本的なツールのテンプレート
 
 from pyfbsdk import *
 from pyfbsdk_additions import *
@@ -16,8 +15,6 @@ def SwitchCamera(pControl, pEvent):
     elif pControl.ItemIndex < 7:
         renderer.SetCameraInPane(FBSystem().Scene.Cameras[camIndex], ActivePaneIndex)
 
-    print(renderer.GetSchematicViewPaneIndex())
-
 def PopulateLayout(tool:FBTool):
     x = FBAddRegionParam(0,FBAttachType.kFBAttachLeft,"")
     y = FBAddRegionParam(0,FBAttachType.kFBAttachTop,"")
@@ -30,17 +27,20 @@ def PopulateLayout(tool:FBTool):
     
     List1 = FBList()
     List1.style = FBListStyle.kFBDropDownList
+
     camList = FBSystem().Scene.Cameras
     for i in range(len(camList)):
         # list item must be string
         List1.Items.append(camList[i].Name)
-    List1.Items.append("Schematic View")
+    List1.Items.append("Schematic View")    
     List1.OnChange.Add(SwitchCamera)
+    
     vbox.Add(List1, 30, space = 10)
     
     
+# do not show the tool, just create
 t = FBCreateUniqueTool("SwitchingCameras")
 t.StartSizeX = 200
 t.StartSizeY = 100
-PopulateLayout(t)    
+PopulateLayout(t) 
 FBAddTool(t)
