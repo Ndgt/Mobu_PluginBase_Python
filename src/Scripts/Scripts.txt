@@ -13,3 +13,6 @@ Mobu_PluginBase_Python - Scripts
 - RemovePrefix.py
     Remove user input prefix string from the selected models
 
+- MirrorTransformation.py
+    Mirror bone rotation in the character
+    
