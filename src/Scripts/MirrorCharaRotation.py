@@ -15,6 +15,10 @@ def ApplyMirror()->None:
     keyword_R = keyword_R_tuple[1]
     keyword_L = keyword_L_tuple[1]
 
+    if(keyword_R=="" or keyword_L==""):
+        FBMessageBox("Warning", "No keyword specified", "OK")
+        return
+
     # bone list for character skeleton
     charaModelList = FBModelList()
     RightBoneList = FBModelList()
