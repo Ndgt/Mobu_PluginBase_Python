@@ -1,0 +1,15 @@
+Mobu_PluginBase_Python - Scripts
+
+
+- charainfo.py
+    Display information of the selected character
+
+- Display60fpsHUD.py
+    Create HUD showing 60fps frame value
+
+- DisplayShapekeys.py
+    Display all shapekeys in the selected character
+
+- RemovePrefix.py
+    Remove user input prefix string from the selected models
+
