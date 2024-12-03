@@ -10,8 +10,8 @@ Mobu_PluginBase_Python - Scripts
 - DisplayShapekeys.py
     Display all shapekeys in the selected character
 
-- RemovePrefix.py
-    Remove user input prefix string from the selected models
+- RemovePrefixSuffix.py
+    Remove user input prefix/suffix string from the selected models
 
 - MirrorTransformation.py
     Mirror bone rotation in the character
