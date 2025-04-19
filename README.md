@@ -21,7 +21,8 @@ The following image shows how to arrange them.
 
 ### Installer
 These modules can be installed automatically using `Installer/PluginBase_Setup.exe`.<br>
-Note: For Windows only
+This installer will be built from `Installer/src/installer.iss` <br>
+**Note**: For Windows only
 
 <br>
 
